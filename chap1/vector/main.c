@@ -55,6 +55,8 @@ int main() {
   vector_print(&v);
 
   vector_destory(&v);
+  vector_destory(&a);
+  vector_destory(&b);
 
   return 0;
 }
