@@ -7,7 +7,7 @@ struct vector {
   int *data;
 };
 
-void vector_new(struct vector *vec, int cap);
+void vector_init(struct vector *vec, int cap);
 
 void vector_destory(struct vector *vec);
 
@@ -32,6 +32,8 @@ int vector_find_next(struct vector *vec, int value, int start_pos);
 void vector_delete_value(struct vector *vec, int value);
 
 void vector_union(struct vector *c, struct vector *a, struct vector *b);
+
+void vector_intersection(struct vector *c, struct vector *a, struct vector *b);
 
 /* Methods to be implemented */
 void vector_reverse(struct vector *vec);

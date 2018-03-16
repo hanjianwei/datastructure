@@ -5,9 +5,9 @@ int main() {
   struct vector v, a, b;
   int i;
 
-  vector_new(&v, 10);
-  vector_new(&a, 10);
-  vector_new(&b, 10);
+  vector_init(&v, 10);
+  vector_init(&a, 10);
+  vector_init(&b, 10);
 
   for (i = 0; i < 5; i++) {
     vector_push_back(&a, i);
@@ -17,7 +17,7 @@ int main() {
     vector_push_back(&b, i);
   }
 
-  vector_union(&v, &a, &b);
+  vector_intersection(&v, &a, &b);
 
   /* for (i = 0; i < 10; i++) { */
   /*   vector_push_front(&v, i); */

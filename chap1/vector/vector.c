@@ -14,7 +14,7 @@ void vector_realloc(struct vector *vec) {
   vec->capacity *= 2;
 }
 
-void vector_new(struct vector *vec, int cap) {
+void vector_init(struct vector *vec, int cap) {
   if (cap <= 0) {
     printf("Wrong capacity!\n");
     return;
@@ -143,6 +143,16 @@ void vector_union(struct vector *c, struct vector *a, struct vector *b) {
   for (i = 0; i < b->size; i++) {
     if (vector_find_first(c, b->data[i]) == -1) {
       vector_push_back(c, b->data[i]);
+    }
+  }
+}
+
+void vector_intersection(struct vector *c, struct vector *a, struct vector *b) {
+  int i;
+
+  for (i = 0; i < a->size; i++) {
+    if (vector_find_first(b, a->data[i]) >= 0) {
+      vector_push_back(c, a->data[i]);
     }
   }
 }
