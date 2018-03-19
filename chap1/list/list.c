@@ -6,7 +6,6 @@
 void list_init(struct list *l) {
   l->size = 0;
   l->head = NULL;
-  l->tail = NULL;
 }
 
 void list_destroy(struct list *l) {
@@ -45,6 +44,20 @@ void list_print(struct list *l) {
   printf("\n");
 }
 
+void list_insert_after_node(struct list_node *node, int value) {
+  struct list_node *p;
+
+  if (node == NULL) {
+    printf("Can not insert after null pointer\n");
+    return;
+  }
+
+  p = (struct list_node *)malloc(sizeof(struct list_node));
+  p->data = value;
+  p->next = node->next;
+  node->next = p;
+}
+
 void list_push_front(struct list *l, int value) {
   struct list_node *p = (struct list_node *)malloc(sizeof(struct list_node));
 
@@ -57,11 +70,34 @@ void list_push_front(struct list *l, int value) {
 
   if (l->head == NULL) {
     p->next = NULL;
-    l->tail = p;
   } else {
     p->next = l->head;
   }
 
   l->head = p;
   l->size++;
+}
+
+struct list_node* list_at(struct list *l, int i) {
+  int n = 0;
+  struct list_node *p = l->head;
+
+  while (p != NULL && n != i) {
+    p = p->next;
+    n++;
+  }
+
+  return p;
+}
+
+void list_insert_after(struct list *l, int i, int value) {
+  struct list_node *node = list_at(l, i);
+
+  if (node == NULL) {
+    printf("i-th node not found\n");
+    return;
+  } else {
+    list_insert_after_node(node, value);
+    l->size++;
+  }
 }

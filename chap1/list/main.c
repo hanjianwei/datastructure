@@ -1,5 +1,7 @@
 #include "list.h"
 
+#include <stdio.h>
+
 int main() {
   struct list s;
   int i;
@@ -11,6 +13,13 @@ int main() {
   }
 
   list_print(&s);
+
+  list_insert_after(&s, 2, 7);
+
+  list_print(&s);
+
+  printf("list_size: %d\n", list_size(&s));
+  printf("size: %d\n", s.size);
 
   list_destroy(&s);
 
