@@ -19,7 +19,8 @@ enum cc_stat vector_reserve(struct vector *vec, int new_cap) {
   return CC_OK;
 }
 
-enum cc_stat vector_init(struct vector *vec, int cap) {
+enum cc_stat vector_init(struct vector *vec, int cap,
+                         void (*destroy)(void *data)) {
   if (cap <= 0) {
     return CC_ERR_INVALID_CAPACITY;
   }
@@ -31,13 +32,23 @@ enum cc_stat vector_init(struct vector *vec, int cap) {
 
   vec->capacity = cap;
   vec->size = 0;
+  vec->destroy = destroy;
 
   return CC_OK;
 }
 
-void vector_destory(struct vector *vec) {
+void vector_destroy(struct vector *vec) {
+  int i;
+
   if (vec->buffer == NULL) {
     return;
+  }
+
+  /* Remove data */
+  if (vec->destroy != NULL) {
+    for (i = 0; i < vec->size; i++) {
+      vec->destroy(vec->buffer[i]);
+    }
   }
 
   free(vec->buffer);
@@ -46,13 +57,16 @@ void vector_destory(struct vector *vec) {
   vec->size = 0;
 }
 
-void vector_print(struct vector *vec) {
+void vector_foreach(struct vector *vec, void (*fn)(elem_t value)) {
   int i;
 
-  for (i = 0; i < vec->size; i++) {
-    printf("%d ", vec->buffer[i]);
+  if (fn == NULL) {
+    return;
   }
-  printf("\n");
+
+  for (i = 0; i < vec->size; i++) {
+    fn(vec->buffer[i]);
+  }
 }
 
 enum cc_stat vector_insert(struct vector *vec, int pos, elem_t value) {
@@ -93,6 +107,10 @@ enum cc_stat vector_remove_at(struct vector *vec, int pos) {
 
   if (pos < 0 || pos > vec->size - 1) {
     return CC_ERR_INVALID_RANGE;
+  }
+
+  if (vec->destroy != NULL) {
+    vec->destroy(vec->buffer[pos]);
   }
 
   for (i = pos + 1; i < vec->size; i++) {
@@ -190,6 +208,7 @@ void vector_swap(struct vector *a, struct vector *b) {
   SWAP(a->size, b->size, int);
   SWAP(a->capacity, b->capacity, int);
   SWAP(a->buffer, b->buffer, elem_t *);
+  /* SWAP(a->destroy, b->destroy, void (*destroy)(void *data)); */
 }
 
 enum cc_stat vector_shrink_to_fit(struct vector *vec) {

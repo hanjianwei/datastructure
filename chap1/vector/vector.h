@@ -1,35 +1,35 @@
 #pragma once
 
-typedef int elem_t;
+typedef void *elem_t;
 
 struct vector {
   int capacity;
   int size;
   elem_t *buffer;
+  void (*destroy)(void *data);
 };
 
 enum cc_stat {
-  CC_OK                   = 0,
+  CC_OK = 0,
 
-  CC_ERR_ALLOC            = 1,
+  CC_ERR_ALLOC = 1,
   CC_ERR_INVALID_CAPACITY = 2,
-  CC_ERR_INVALID_RANGE    = 3,
-  CC_ERR_MAX_CAPACITY     = 4,
-  CC_ERR_KEY_NOT_FOUND    = 6,
-  CC_ERR_VALUE_NOT_FOUND  = 7,
-  CC_ERR_OUT_OF_RANGE     = 8,
+  CC_ERR_INVALID_RANGE = 3,
+  CC_ERR_MAX_CAPACITY = 4,
+  CC_ERR_KEY_NOT_FOUND = 6,
+  CC_ERR_VALUE_NOT_FOUND = 7,
+  CC_ERR_OUT_OF_RANGE = 8,
 
-  CC_ITER_END             = 9,
+  CC_ITER_END = 9,
 };
 
-
 /* Allocate and destroy buffer for vector */
-enum cc_stat vector_init(struct vector *vec, int cap);
-void vector_destory(struct vector *vec);
+enum cc_stat vector_init(struct vector *vec, int cap,
+                         void (*destroy)(void *data));
+void vector_destroy(struct vector *vec);
 enum cc_stat vector_reserve(struct vector *vec, int new_cap);
 
-/* Print vector content */
-void vector_print(struct vector *vec);
+void vector_foreach(struct vector *vec, void (*fn)(elem_t value));
 
 /* Insert element */
 enum cc_stat vector_insert(struct vector *vec, int pos, elem_t value);
