@@ -3,40 +3,47 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void vector_realloc(struct vector *vec) {
-  elem_t *p = (elem_t *)realloc(vec->buffer, vec->capacity * 2 * sizeof(elem_t));
+enum cc_stat vector_reserve(struct vector *vec, int new_cap) {
+  if (new_cap < vec->size) {
+    return CC_ERR_INVALID_CAPACITY;
+  }
+
+  elem_t *p = (elem_t *)realloc(vec->buffer, new_cap * sizeof(elem_t));
   if (p == NULL) {
-    printf("Reallocate failed\n");
-    return;
+    return CC_ERR_ALLOC;
   }
 
   vec->buffer = p;
-  vec->capacity *= 2;
+  vec->capacity = new_cap;
+
+  return CC_OK;
 }
 
-void vector_init(struct vector *vec, int cap) {
+enum cc_stat vector_init(struct vector *vec, int cap) {
   if (cap <= 0) {
-    printf("Wrong capacity!\n");
-    return;
+    return CC_ERR_INVALID_CAPACITY;
   }
 
   vec->buffer = (elem_t *)malloc(cap * sizeof(elem_t));
   if (vec->buffer == NULL) {
-    printf("Allocate vector failed\n");
-    return;
+    return CC_ERR_ALLOC;
   }
 
   vec->capacity = cap;
   vec->size = 0;
+
+  return CC_OK;
 }
 
 void vector_destory(struct vector *vec) {
-  if (vec->buffer != NULL) {
-    free(vec->buffer);
-    vec->buffer = NULL;
-    vec->capacity = 0;
-    vec->size = 0;
+  if (vec->buffer == NULL) {
+    return;
   }
+
+  free(vec->buffer);
+  vec->buffer = NULL;
+  vec->capacity = 0;
+  vec->size = 0;
 }
 
 void vector_print(struct vector *vec) {
@@ -48,16 +55,19 @@ void vector_print(struct vector *vec) {
   printf("\n");
 }
 
-void vector_insert(struct vector *vec, int pos, elem_t value) {
+enum cc_stat vector_insert(struct vector *vec, int pos, elem_t value) {
   int i;
+  enum cc_stat err;
 
   if (pos < 0 || pos > vec->size) {
-    printf("Wrong insert position\n");
-    return;
+    return CC_ERR_INVALID_RANGE;
   }
 
   if (vec->size == vec->capacity) {
-    vector_realloc(vec);
+    err = vector_reserve(vec, 2 * vec->capacity);
+    if (err != CC_OK) {
+      return err;
+    }
   }
 
   for (i = vec->size - 1; i >= pos; i--) {
@@ -66,23 +76,23 @@ void vector_insert(struct vector *vec, int pos, elem_t value) {
 
   vec->buffer[pos] = value;
   vec->size++;
-  return;
+
+  return CC_OK;
 }
 
-void vector_push_back(struct vector *vec, elem_t value) {
-  vector_insert(vec, vec->size, value);
+enum cc_stat vector_push_back(struct vector *vec, elem_t value) {
+  return vector_insert(vec, vec->size, value);
 }
 
-void vector_push_front(struct vector *vec, elem_t value) {
-  vector_insert(vec, 0, value);
+enum cc_stat vector_push_front(struct vector *vec, elem_t value) {
+  return vector_insert(vec, 0, value);
 }
 
-void vector_remove_at(struct vector *vec, int pos) {
+enum cc_stat vector_remove_at(struct vector *vec, int pos) {
   int i;
 
   if (pos < 0 || pos > vec->size - 1) {
-    printf("Delete at wrong position\n");
-    return;
+    return CC_ERR_INVALID_RANGE;
   }
 
   for (i = pos + 1; i < vec->size; i++) {
@@ -90,12 +100,16 @@ void vector_remove_at(struct vector *vec, int pos) {
   }
 
   vec->size--;
+
+  return CC_OK;
 }
 
-void vector_pop_front(struct vector *vec) { vector_remove_at(vec, 0); }
+enum cc_stat vector_pop_front(struct vector *vec) {
+  return vector_remove_at(vec, 0);
+}
 
-void vector_pop_back(struct vector *vec) {
-  vector_remove_at(vec, vec->size - 1);
+enum cc_stat vector_pop_back(struct vector *vec) {
+  return vector_remove_at(vec, vec->size - 1);
 }
 
 void vector_delete_value(struct vector *vec, elem_t value) {
@@ -178,15 +192,8 @@ void vector_swap(struct vector *a, struct vector *b) {
   SWAP(a->buffer, b->buffer, elem_t *);
 }
 
-void vector_shrink_to_fit(struct vector *vec) {
-  elem_t *p = (elem_t *)realloc(vec->buffer, vec->size * sizeof(elem_t));
-  if (p == NULL) {
-    printf("Shrink failed\n");
-    return;
-  }
-
-  vec->buffer = p;
-  vec->capacity = vec->size;
+enum cc_stat vector_shrink_to_fit(struct vector *vec) {
+  return vector_reserve(vec, vec->size);
 }
 
 elem_t vector_at(struct vector *vec, int index) {
