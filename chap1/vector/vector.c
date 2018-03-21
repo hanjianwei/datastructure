@@ -4,7 +4,7 @@
 #include <stdlib.h>
 
 void vector_realloc(struct vector *vec) {
-  int *p = (int *)realloc(vec->data, vec->capacity * 2 * sizeof(int));
+  elem_t *p = (elem_t *)realloc(vec->data, vec->capacity * 2 * sizeof(elem_t));
   if (p == NULL) {
     printf("Reallocate failed\n");
     return;
@@ -20,7 +20,7 @@ void vector_init(struct vector *vec, int cap) {
     return;
   }
 
-  vec->data = (int *)malloc(cap * sizeof(int));
+  vec->data = (elem_t *)malloc(cap * sizeof(elem_t));
   if (vec->data == NULL) {
     printf("Allocate vector failed\n");
     return;
@@ -48,7 +48,7 @@ void vector_print(struct vector *vec) {
   printf("\n");
 }
 
-void vector_insert(struct vector *vec, int pos, int value) {
+void vector_insert(struct vector *vec, int pos, elem_t value) {
   int i;
 
   if (pos < 0 || pos > vec->size) {
@@ -69,11 +69,11 @@ void vector_insert(struct vector *vec, int pos, int value) {
   return;
 }
 
-void vector_push_back(struct vector *vec, int value) {
+void vector_push_back(struct vector *vec, elem_t value) {
   vector_insert(vec, vec->size, value);
 }
 
-void vector_push_front(struct vector *vec, int value) {
+void vector_push_front(struct vector *vec, elem_t value) {
   vector_insert(vec, 0, value);
 }
 
@@ -98,7 +98,7 @@ void vector_pop_back(struct vector *vec) {
   vector_remove_at(vec, vec->size - 1);
 }
 
-void vector_delete_value(struct vector *vec, int value) {
+void vector_delete_value(struct vector *vec, elem_t value) {
   int pos = 0;
 
   while ((pos = vector_find_next(vec, value, pos)) != -1) {
@@ -106,7 +106,7 @@ void vector_delete_value(struct vector *vec, int value) {
   }
 }
 
-int vector_find_next(struct vector *vec, int value, int start_pos) {
+int vector_find_next(struct vector *vec, elem_t value, int start_pos) {
   int i;
 
   if (vec->size == 0) {
@@ -127,7 +127,7 @@ int vector_find_next(struct vector *vec, int value, int start_pos) {
   return -1;
 }
 
-int vector_find_first(struct vector *vec, int value) {
+int vector_find_first(struct vector *vec, elem_t value) {
   return vector_find_next(vec, value, 0);
 }
 
