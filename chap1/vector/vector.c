@@ -156,3 +156,43 @@ void vector_intersection(struct vector *c, struct vector *a, struct vector *b) {
     }
   }
 }
+
+#define SWAP(x, y, T)                                                          \
+  do {                                                                         \
+    T SWAP = x;                                                                \
+    x = y;                                                                     \
+    y = SWAP;                                                                  \
+  } while (0)
+
+void vector_reverse(struct vector *vec) {
+  int i;
+
+  for (i = 0; i < vec->size / 2; i++) {
+    SWAP(vec->data[i], vec->data[vec->size - i - 1], elem_t);
+  }
+}
+
+void vector_swap(struct vector *a, struct vector *b) {
+  SWAP(a->size, b->size, int);
+  SWAP(a->capacity, b->capacity, int);
+  SWAP(a->data, b->data, elem_t *);
+}
+
+void vector_shrink_to_fit(struct vector *vec) {
+  elem_t *p = (elem_t *)realloc(vec->data, vec->size * sizeof(elem_t));
+  if (p == NULL) {
+    printf("Shrink failed\n");
+    return;
+  }
+
+  vec->data = p;
+  vec->capacity = vec->size;
+}
+
+elem_t vector_at(struct vector *vec, int index) {
+  int r = index % vec->size;
+  if (r < 0)
+    r += vec->size;
+
+  return vec->data[r];
+}

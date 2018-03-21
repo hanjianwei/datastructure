@@ -17,7 +17,27 @@ int main() {
     vector_push_back(&b, i);
   }
 
-  vector_intersection(&v, &a, &b);
+  vector_print(&a);
+  vector_print(&b);
+
+  vector_swap(&a, &b);
+
+  vector_print(&a);
+  vector_print(&b);
+
+  printf("capacity of a: %d\n", a.capacity);
+  vector_shrink_to_fit(&a);
+  printf("shrink capacity of a: %d\n", a.capacity);
+
+  vector_reverse(&a);
+  vector_print(&a);
+
+  for (i = -10; i < 10; i++) {
+    printf("%d ", vector_at(&a, i));
+  }
+
+
+  /* vector_intersection(&v, &a, &b); */
 
   /* for (i = 0; i < 10; i++) { */
   /*   vector_push_front(&v, i); */
@@ -52,7 +72,7 @@ int main() {
 
   /* vector_delete_value(&v, 0); */
 
-  vector_print(&v);
+  /* vector_print(&v); */
 
   vector_destory(&v);
   vector_destory(&a);

@@ -43,4 +43,4 @@ void vector_swap(struct vector *a, struct vector *b);
 
 void vector_shrink_to_fit(struct vector *vec);
 
-elem_t at(struct vector *vec, int index);
+elem_t vector_at(struct vector *vec, int index);
