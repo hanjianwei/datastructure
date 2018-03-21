@@ -44,7 +44,7 @@ void list_print(struct list *l) {
   printf("\n");
 }
 
-void list_insert_after_node(struct list_node *node, int value) {
+void list_insert_after_node(struct list_node *node, elem_t value) {
   struct list_node *p;
 
   if (node == NULL) {
@@ -58,7 +58,7 @@ void list_insert_after_node(struct list_node *node, int value) {
   node->next = p;
 }
 
-void list_push_front(struct list *l, int value) {
+void list_push_front(struct list *l, elem_t value) {
   struct list_node *p = (struct list_node *)malloc(sizeof(struct list_node));
 
   if (p == NULL) {
@@ -90,7 +90,7 @@ struct list_node* list_at(struct list *l, int i) {
   return p;
 }
 
-void list_insert_after(struct list *l, int i, int value) {
+void list_insert_after(struct list *l, int i, elem_t value) {
   struct list_node *node = list_at(l, i);
 
   if (node == NULL) {

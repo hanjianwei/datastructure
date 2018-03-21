@@ -1,8 +1,10 @@
 #ifndef DS_LIST_H_
 #define DS_LIST_H_
 
+typedef int elem_t;
+
 struct list_node {
-  int data;
+  elem_t data;
   struct list_node *next;
 };
 
@@ -19,10 +21,10 @@ int list_size(struct list *l);
 
 void list_print(struct list *l);
 
-void list_push_front(struct list *l, int value);
+void list_push_front(struct list *l, elem_t value);
 
 struct list_node* list_at(struct list *l, int i);
 
-void list_insert_after(struct list *l, int i, int value);
+void list_insert_after(struct list *l, int i, elem_t value);
 
 #endif // DS_LIST_H_
