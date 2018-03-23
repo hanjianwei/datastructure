@@ -21,20 +21,11 @@ enum cc_stat vector_reserve(struct vector *vec, int new_cap) {
 
 enum cc_stat vector_init(struct vector *vec, int cap,
                          void (*destroy)(void *data)) {
-  if (cap <= 0) {
-    return CC_ERR_INVALID_CAPACITY;
-  }
-
-  vec->buffer = (elem_t *)malloc(cap * sizeof(elem_t));
-  if (vec->buffer == NULL) {
-    return CC_ERR_ALLOC;
-  }
-
-  vec->capacity = cap;
   vec->size = 0;
   vec->destroy = destroy;
+  vec->buffer = NULL;
 
-  return CC_OK;
+  return vector_reserve(vec, cap);
 }
 
 void vector_destroy(struct vector *vec) {
