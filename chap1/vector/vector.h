@@ -29,6 +29,8 @@ enum cc_stat vector_init(struct vector *vec, int cap,
 void vector_destroy(struct vector *vec);
 enum cc_stat vector_reserve(struct vector *vec, int new_cap);
 
+int vector_eq(struct vector *a, struct vector *b);
+
 void vector_foreach(struct vector *vec, void (*fn)(elem_t value));
 
 /* Insert element */

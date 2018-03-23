@@ -48,6 +48,22 @@ void vector_destroy(struct vector *vec) {
   vec->size = 0;
 }
 
+int vector_eq(struct vector *a, struct vector *b) {
+  int i;
+
+  if (a->size != b->size) {
+    return 0;
+  }
+
+  for (i = 0; i < a->size; i++) {
+    if (a->buffer[i] != b->buffer[i]) {
+      return 0;
+    }
+  }
+
+  return 1;
+}
+
 void vector_foreach(struct vector *vec, void (*fn)(elem_t value)) {
   int i;
 
