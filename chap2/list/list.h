@@ -1,30 +1,38 @@
-#ifndef DS_LIST_H_
-#define DS_LIST_H_
+#pragma once
 
-typedef int elem_t;
+#include "common.h"
 
-struct list_node {
-  elem_t data;
-  struct list_node *next;
+typedef int DataType;
+
+struct ListNode {
+  DataType data;
+  struct ListNode *next;
 };
 
-struct list {
+struct List {
   int size;
-  struct list_node *head;
+  struct ListNode *head;
+  struct ListNode *tail;
 };
 
-void list_init(struct list *l);
+// Init a list
+void list_init(struct List *l);
+// Destroy a lisjt
+void list_destroy(struct List *l);
 
-void list_destroy(struct list *l);
+// Insert `data` after node `node`
+enum Status list_insert_after(struct List *list, struct ListNode *node,
+                              DataType data);
+// Insert `data` at front of `list`
+enum Status list_push_front(struct List *list, DataType data);
+enum Status list_push_back(struct List *list, DataType data);
 
-int list_size(struct list *l);
+// Remove the node after `node`
+enum Status list_remove_after(struct List *list, struct ListNode *node);
+// Remove first node
+enum Status list_pop_front(struct List *list);
 
-void list_print(struct list *l);
-
-void list_push_front(struct list *l, elem_t value);
-
-struct list_node* list_at(struct list *l, int i);
-
-void list_insert_after(struct list *l, int i, elem_t value);
-
-#endif // DS_LIST_H_
+// Get list size
+int list_size(struct List *list);
+// Get i-th element
+struct ListNode *list_at(struct List *list, int i);

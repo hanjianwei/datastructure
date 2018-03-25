@@ -2,23 +2,37 @@
 
 #include <stdio.h>
 
+void print_list(struct List *list) {
+  struct ListNode *p = list->head;
+
+  while (p) {
+    printf("%d ", p->data);
+    p = p->next;
+  }
+
+  printf("\n");
+}
+
+
 int main() {
-  struct list s;
+  struct List s;
   int i;
 
   list_init(&s);
 
   for (i = 0; i < 5; i++) {
-    list_push_front(&s, i);
+    list_push_back(&s, i);
   }
 
-  list_print(&s);
+  print_list(&s);
 
-  list_insert_after(&s, 2, 7);
+  printf("size: %d\n", s.size);
 
-  list_print(&s);
 
-  printf("list_size: %d\n", list_size(&s));
+  list_pop_front(&s);
+
+  print_list(&s);
+
   printf("size: %d\n", s.size);
 
   list_destroy(&s);
