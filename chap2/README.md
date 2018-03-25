@@ -8,7 +8,7 @@
 
 在[vector](https://github.com/hanjianwei/datastructure/tree/e8193613dd5466ee75a47ea19ac992f8fa560e1d/chap2/vector)基础上，实现以下几个功能:
 
-1. 实现下面几个函数，并在`main`函数中写出对应的测试代码。（[参考答案](https://github.com/hanjianwei/datastructure/tree/b195267f2a27ba1ac136df88ed6e93bd9dd6a951/chap2/vector/vector.c#L160-L198)）
+1. 实现下面几个函数，并在`main`函数中写出对应的测试代码。（[参考答案](https://github.com/hanjianwei/datastructure/tree/master/chap2/vector/vector.c#L139-L163)）
 
 ~~~ c
 // 将vec中的元素反过来，比如原来是1、2、3，调用后变成3、2、1
@@ -24,6 +24,7 @@ void vector_shrink_to_fit(struct vector *vec);
 int vector_at(struct vector *vec, int index);
 ~~~
 
-2. 如何让`vector`支持所有的数据类型？写出代码及相应的测试代码。([参考答案](https://github.com/hanjianwei/datastructure/tree/master/chap2/vector))
+2. 如何合理处理各种错误，提出你自己的方案，用代码实现并写出相应的测试代码。([参考答案](https://github.com/hanjianwei/datastructure/tree/master/chap2/vector))
 
-3. 如何合理处理各种错误，提出你自己的方案，用代码实现并写出相应的测试代码。([参考答案](https://github.com/hanjianwei/datastructure/tree/master/chap2/generic_vector))
+3. 如何让`vector`支持所有的数据类型？写出代码及相应的测试代码。([参考答案](https://github.com/hanjianwei/datastructure/tree/master/chap2/generic_vector))
+

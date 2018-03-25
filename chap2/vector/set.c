@@ -1,6 +1,6 @@
 #include "set.h"
 
-void vector_union(struct vector *c, struct vector *a, struct vector *b) {
+void vector_union(struct Vector *c, struct Vector *a, struct Vector *b) {
   int i;
 
   for (i = 0; i < a->size; i++) {
@@ -16,7 +16,7 @@ void vector_union(struct vector *c, struct vector *a, struct vector *b) {
   }
 }
 
-void vector_intersection(struct vector *c, struct vector *a, struct vector *b) {
+void vector_intersection(struct Vector *c, struct Vector *a, struct Vector *b) {
   int i;
 
   for (i = 0; i < a->size; i++) {

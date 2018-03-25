@@ -3,39 +3,39 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-enum cc_stat vector_init(struct vector *vec, int cap) {
+enum Status vector_init(struct Vector *vec, int cap) {
   if (cap <= 0) {
-    return CC_ERR_INVALID_CAPACITY;
+    return STATUS_ERR_INVALID_CAPACITY;
   }
 
-  vec->buffer = (elem_t *)malloc(cap * sizeof(elem_t));
+  vec->buffer = (DataType *)malloc(cap * sizeof(DataType));
   if (vec->buffer == NULL) {
-    return CC_ERR_ALLOC;
+    return STATUS_ERR_ALLOC;
   }
 
   vec->capacity = cap;
   vec->size = 0;
 
-  return CC_OK;
+  return STATUS_OK;
 }
 
-enum cc_stat vector_reserve(struct vector *vec, int new_cap) {
+enum Status vector_reserve(struct Vector *vec, int new_cap) {
   if (new_cap < vec->size) {
-    return CC_ERR_INVALID_CAPACITY;
+    return STATUS_ERR_INVALID_CAPACITY;
   }
 
-  elem_t *p = (elem_t *)realloc(vec->buffer, new_cap * sizeof(elem_t));
+  DataType *p = (DataType *)realloc(vec->buffer, new_cap * sizeof(DataType));
   if (p == NULL) {
-    return CC_ERR_ALLOC;
+    return STATUS_ERR_ALLOC;
   }
 
   vec->buffer = p;
   vec->capacity = new_cap;
 
-  return CC_OK;
+  return STATUS_OK;
 }
 
-void vector_destroy(struct vector *vec) {
+void vector_destroy(struct Vector *vec) {
   if (vec->buffer == NULL) {
     return;
   }
@@ -46,17 +46,17 @@ void vector_destroy(struct vector *vec) {
   vec->size = 0;
 }
 
-enum cc_stat vector_insert(struct vector *vec, int pos, elem_t value) {
+enum Status vector_insert(struct Vector *vec, int pos, DataType value) {
   int i;
-  enum cc_stat err;
+  enum Status err;
 
   if (pos < 0 || pos > vec->size) {
-    return CC_ERR_INVALID_RANGE;
+    return STATUS_ERR_INVALID_RANGE;
   }
 
   if (vec->size == vec->capacity) {
     err = vector_reserve(vec, 2 * vec->capacity);
-    if (err != CC_OK) {
+    if (err != STATUS_OK) {
       return err;
     }
   }
@@ -68,22 +68,22 @@ enum cc_stat vector_insert(struct vector *vec, int pos, elem_t value) {
   vec->buffer[pos] = value;
   vec->size++;
 
-  return CC_OK;
+  return STATUS_OK;
 }
 
-enum cc_stat vector_push_back(struct vector *vec, elem_t value) {
+enum Status vector_push_back(struct Vector *vec, DataType value) {
   return vector_insert(vec, vec->size, value);
 }
 
-enum cc_stat vector_push_front(struct vector *vec, elem_t value) {
+enum Status vector_push_front(struct Vector *vec, DataType value) {
   return vector_insert(vec, 0, value);
 }
 
-enum cc_stat vector_remove_at(struct vector *vec, int pos) {
+enum Status vector_remove_at(struct Vector *vec, int pos) {
   int i;
 
   if (pos < 0 || pos > vec->size - 1) {
-    return CC_ERR_INVALID_RANGE;
+    return STATUS_ERR_INVALID_RANGE;
   }
 
   for (i = pos + 1; i < vec->size; i++) {
@@ -92,18 +92,18 @@ enum cc_stat vector_remove_at(struct vector *vec, int pos) {
 
   vec->size--;
 
-  return CC_OK;
+  return STATUS_OK;
 }
 
-enum cc_stat vector_pop_front(struct vector *vec) {
+enum Status vector_pop_front(struct Vector *vec) {
   return vector_remove_at(vec, 0);
 }
 
-enum cc_stat vector_pop_back(struct vector *vec) {
+enum Status vector_pop_back(struct Vector *vec) {
   return vector_remove_at(vec, vec->size - 1);
 }
 
-void vector_delete_value(struct vector *vec, elem_t value) {
+void vector_delete_value(struct Vector *vec, DataType value) {
   int pos = 0;
 
   while ((pos = vector_find_next(vec, value, pos)) != -1) {
@@ -111,7 +111,7 @@ void vector_delete_value(struct vector *vec, elem_t value) {
   }
 }
 
-int vector_find_next(struct vector *vec, elem_t value, int start_pos) {
+int vector_find_next(struct Vector *vec, DataType value, int start_pos) {
   int i;
 
   if (vec->size == 0) {
@@ -132,29 +132,29 @@ int vector_find_next(struct vector *vec, elem_t value, int start_pos) {
   return -1;
 }
 
-int vector_find_first(struct vector *vec, elem_t value) {
+int vector_find_first(struct Vector *vec, DataType value) {
   return vector_find_next(vec, value, 0);
 }
 
-void vector_reverse(struct vector *vec) {
+void vector_reverse(struct Vector *vec) {
   int i;
 
   for (i = 0; i < vec->size / 2; i++) {
-    SWAP(vec->buffer[i], vec->buffer[vec->size - i - 1], elem_t);
+    SWAP(vec->buffer[i], vec->buffer[vec->size - i - 1], DataType);
   }
 }
 
-void vector_swap(struct vector *a, struct vector *b) {
+void vector_swap(struct Vector *a, struct Vector *b) {
   SWAP(a->size, b->size, int);
   SWAP(a->capacity, b->capacity, int);
-  SWAP(a->buffer, b->buffer, elem_t *);
+  SWAP(a->buffer, b->buffer, DataType *);
 }
 
-enum cc_stat vector_shrink_to_fit(struct vector *vec) {
+enum Status vector_shrink_to_fit(struct Vector *vec) {
   return vector_reserve(vec, vec->size);
 }
 
-elem_t vector_at(struct vector *vec, int index) {
+DataType vector_at(struct Vector *vec, int index) {
   int r = index % vec->size;
   if (r < 0)
     r += vec->size;
