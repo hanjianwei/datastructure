@@ -2,4 +2,4 @@
 
 ## 课件
 
-[下载]((https://github.com/hanjianwei/datastructure/raw/master/chap3/chap3.ppt)
+[下载](https://github.com/hanjianwei/datastructure/raw/master/chap3/chap3.ppt)
