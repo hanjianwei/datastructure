@@ -1,5 +1,9 @@
 # 第2章 线性表
 
+## 课件
+
+[下载](https://github.com/hanjianwei/datastructure/raw/master/chap2/chap2.ppt)
+
 ## 第1次作业
 
 在[vector](https://github.com/hanjianwei/datastructure/tree/e8193613dd5466ee75a47ea19ac992f8fa560e1d/chap2/vector)基础上，实现以下几个功能:
