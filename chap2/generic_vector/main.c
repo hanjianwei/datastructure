@@ -4,27 +4,27 @@
 
 void print_int(void *pi) { printf("%d ", *(int *)pi); }
 
-void print_vector(struct vector *vec) {
+void print_vector(struct Vector *vec) {
   vector_foreach(vec, print_int);
   printf("\n");
 }
 
-void exit_if_error(enum cc_stat st) {
-  if (st == CC_OK) {
+void exit_if_error(enum Status st) {
+  if (st == STATUS_OK) {
     return;
   }
 
   switch (st) {
-  case CC_ERR_ALLOC:
+  case STATUS_ERR_ALLOC:
     printf("Memory allocation error\n");
     break;
-  case CC_ERR_INVALID_CAPACITY:
+  case STATUS_ERR_INVALID_CAPACITY:
     printf("Invalide capacity\n");
     break;
-  case CC_ERR_INVALID_RANGE:
+  case STATUS_ERR_INVALID_RANGE:
     printf("Invalide range\n");
     break;
-  case CC_ERR_OUT_OF_RANGE:
+  case STATUS_ERR_OUT_OF_RANGE:
     printf("Out of range\n");
     break;
   default:
@@ -35,15 +35,15 @@ void exit_if_error(enum cc_stat st) {
   exit(1);
 }
 
-struct vector *generate_vector(int from, int to) {
+struct Vector *generate_vector(int from, int to) {
   int i;
   int *pv;
-  enum cc_stat err;
+  enum Status err;
   int step = (from < to ? 1 : -1);
-  struct vector *v = (struct vector *)malloc(sizeof(struct vector));
+  struct Vector *v = (struct Vector *)malloc(sizeof(struct Vector));
 
   if (v == NULL) {
-    exit_if_error(CC_ERR_ALLOC);
+    exit_if_error(STATUS_ERR_ALLOC);
   }
 
   err = vector_init(v, 10, free);
@@ -59,15 +59,15 @@ struct vector *generate_vector(int from, int to) {
   return v;
 }
 
-void free_vector(struct vector *v) {
+void free_vector(struct Vector *v) {
   vector_destroy(v);
   free(v);
 }
 
 /* Test swap */
 void test_swap() {
-  struct vector *a = generate_vector(0, 5);
-  struct vector *b = generate_vector(2, 7);
+  struct Vector *a = generate_vector(0, 5);
+  struct Vector *b = generate_vector(2, 7);
 
   print_vector(a);
   print_vector(b);
@@ -77,7 +77,7 @@ void test_swap() {
 }
 
 void test_shrink() {
-  struct vector *a = generate_vector(0, 5);
+  struct Vector *a = generate_vector(0, 5);
 
   printf("capacity of a: %d\n", a->capacity);
   vector_shrink_to_fit(a);
@@ -87,7 +87,7 @@ void test_shrink() {
 }
 
 void test_reverse() {
-  struct vector *a = generate_vector(0, 5);
+  struct Vector *a = generate_vector(0, 5);
 
   vector_reverse(a);
   print_vector(a);
@@ -96,12 +96,12 @@ void test_reverse() {
 }
 
 void test_at() {
-  struct vector *a = generate_vector(0, 5);
+  struct Vector *a = generate_vector(0, 5);
   int i;
   int *p;
 
   for (i = -10; i < 10; i++) {
-    p = (int*)vector_at(a, i);
+    p = (int *)vector_at(a, i);
     printf("%d ", *p);
   }
 
