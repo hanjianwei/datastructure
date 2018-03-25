@@ -9,17 +9,10 @@ void list_init(struct List *list) {
   list->tail = NULL;
 }
 
-void list_destroy(struct List *l) {
-  struct ListNode *p = l->head;
-  struct ListNode *q;
-
-  while (p) {
-    q = p->next;
-    free(p);
-    p = q;
+void list_destroy(struct List *list) {
+  while (list_size(list) > 0) {
+    list_remove_after(list, NULL);
   }
-
-  list_init(l);
 }
 
 enum Status list_insert_after(struct List *list, struct ListNode *node,

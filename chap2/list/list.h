@@ -16,9 +16,9 @@ struct List {
 };
 
 // Init a list
-void list_init(struct List *l);
-// Destroy a lisjt
-void list_destroy(struct List *l);
+void list_init(struct List *list);
+// Destroy a list
+void list_destroy(struct List *list);
 
 // Insert `data` after node `node`
 enum Status list_insert_after(struct List *list, struct ListNode *node,
@@ -29,7 +29,7 @@ enum Status list_push_back(struct List *list, DataType data);
 
 // Remove the node after `node`
 enum Status list_remove_after(struct List *list, struct ListNode *node);
-// Remove first node
+// Remove the first node
 enum Status list_pop_front(struct List *list);
 
 // Get list size
