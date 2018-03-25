@@ -28,3 +28,6 @@ int vector_at(struct vector *vec, int index);
 
 3. 如何让`vector`支持所有的数据类型？写出代码及相应的测试代码。([参考答案](https://github.com/hanjianwei/datastructure/tree/master/chap2/generic_vector))
 
+## 第2次作业
+
+1. 参考单链表[list](./list/)的实现，分别完成双向链表[dlist](./dlist)、循环链表[clist](./clist)，分别实现其中标`TODO`的函数，使得两个程序能够正确运行。
