@@ -2,7 +2,7 @@
 
 #include "common.h"
 
-typedef int elem_t;
+typedef double elem_t;
 
 struct vector {
   int capacity;
@@ -14,9 +14,6 @@ struct vector {
 enum cc_stat vector_init(struct vector *vec, int cap);
 void vector_destroy(struct vector *vec);
 enum cc_stat vector_reserve(struct vector *vec, int new_cap);
-
-/* Print vector content */
-void vector_print(struct vector *vec);
 
 /* Insert element */
 enum cc_stat vector_insert(struct vector *vec, int pos, elem_t value);

@@ -3,22 +3,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-enum cc_stat vector_reserve(struct vector *vec, int new_cap) {
-  if (new_cap < vec->size) {
-    return CC_ERR_INVALID_CAPACITY;
-  }
-
-  elem_t *p = (elem_t *)realloc(vec->buffer, new_cap * sizeof(elem_t));
-  if (p == NULL) {
-    return CC_ERR_ALLOC;
-  }
-
-  vec->buffer = p;
-  vec->capacity = new_cap;
-
-  return CC_OK;
-}
-
 enum cc_stat vector_init(struct vector *vec, int cap) {
   if (cap <= 0) {
     return CC_ERR_INVALID_CAPACITY;
@@ -35,6 +19,22 @@ enum cc_stat vector_init(struct vector *vec, int cap) {
   return CC_OK;
 }
 
+enum cc_stat vector_reserve(struct vector *vec, int new_cap) {
+  if (new_cap < vec->size) {
+    return CC_ERR_INVALID_CAPACITY;
+  }
+
+  elem_t *p = (elem_t *)realloc(vec->buffer, new_cap * sizeof(elem_t));
+  if (p == NULL) {
+    return CC_ERR_ALLOC;
+  }
+
+  vec->buffer = p;
+  vec->capacity = new_cap;
+
+  return CC_OK;
+}
+
 void vector_destroy(struct vector *vec) {
   if (vec->buffer == NULL) {
     return;
@@ -44,15 +44,6 @@ void vector_destroy(struct vector *vec) {
   vec->buffer = NULL;
   vec->capacity = 0;
   vec->size = 0;
-}
-
-void vector_print(struct vector *vec) {
-  int i;
-
-  for (i = 0; i < vec->size; i++) {
-    printf("%d ", vec->buffer[i]);
-  }
-  printf("\n");
 }
 
 enum cc_stat vector_insert(struct vector *vec, int pos, elem_t value) {
