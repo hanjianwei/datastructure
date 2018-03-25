@@ -12,7 +12,7 @@ struct vector {
 
 /* Allocate and destroy buffer for vector */
 enum cc_stat vector_init(struct vector *vec, int cap);
-void vector_destory(struct vector *vec);
+void vector_destroy(struct vector *vec);
 enum cc_stat vector_reserve(struct vector *vec, int new_cap);
 
 /* Print vector content */

@@ -35,7 +35,7 @@ enum cc_stat vector_init(struct vector *vec, int cap) {
   return CC_OK;
 }
 
-void vector_destory(struct vector *vec) {
+void vector_destroy(struct vector *vec) {
   if (vec->buffer == NULL) {
     return;
   }

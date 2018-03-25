@@ -50,7 +50,7 @@ struct vector *generate_vector(int from, int to) {
 }
 
 void free_vector(struct vector *v) {
-  vector_destory(v);
+  vector_destroy(v);
   free(v);
 }
 
