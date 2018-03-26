@@ -30,4 +30,15 @@ int vector_at(struct Vector *vec, int index);
 
 ## 第2次作业
 
-1. 参考单链表[list](./list/)的实现，分别完成双向链表[dlist](./dlist)、循环链表[clist](./clist)，分别实现其中标`TODO`的函数，使得两个程序能够正确运行。
+1. 阅读单链表实现的代码[list](./list/)，完成下面两个函数（参见[sorted_list.h](./list/sorted_list.h)、[sorted_list.c](./list/sorted_list.c)，并完成标有`TODO`的函数).
+~~~ c
+// Merge sorted list src1 and src2 to dst
+// src1和src2是从小到大排好序的链表，将它们所有节点移到dst中，并按照从小到大的顺序排列
+enum Status merge_sorted_lists(struct List *dst, struct List *src1,
+                               struct List *src2);
+
+// Merge k lists
+// srcs是n个从小到大排好序的链表，将它们所有节点移到dst中，并按照从小到大的顺序排列
+enum Status merge_multiple_lists(struct List *dst, struct List **srcs, int n);
+~~~
+2. 参考单链表[list](./list/)的实现，分别完成双向链表[dlist](./dlist)、循环链表[clist](./clist)，分别实现其中标`TODO`的函数，使得两个程序能够正确运行。
