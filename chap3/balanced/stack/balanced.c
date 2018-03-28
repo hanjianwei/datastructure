@@ -18,7 +18,7 @@ int main() {
   }
 }
 
-char matched_open(char c) {
+char matched_char(char c) {
   switch (c) {
   case ')':
     return '(';
@@ -52,7 +52,7 @@ bool is_balanced(char *s) {
     case ')':
     case ']':
     case '}':
-      if (stack_empty(&stack) || stack_pop(&stack) != matched_open(*s)) {
+      if (stack_empty(&stack) || stack_pop(&stack) != matched_char(*s)) {
         balanced = false;
       }
       break;
