@@ -10,9 +10,9 @@ struct Offset {
   int dy;
 };
 
-/* struct Offset dirs[8] = {{-1, 0}, {-1, 1}, {0, 1},  {1, 1}, */
-/*                          {1, 0},  {1, -1}, {0, -1}, {-1, -1}}; */
-struct Offset dirs[4] = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
+struct Offset dirs[8] = {{-1, 0}, {-1, 1}, {0, 1},  {1, 1},
+                         {1, 0},  {1, -1}, {0, -1}, {-1, -1}};
+/* struct Offset dirs[4] = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}}; */
 
 void maze_solver(Maze maze, int entry_row, int entry_col, int exit_row,
                  int exit_col);
