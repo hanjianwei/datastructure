@@ -2,6 +2,20 @@
 #include <stdio.h>
 #include <string.h>
 
+bool is_balanced(char *s, int len, int open);
+
+int main() {
+  char s[100];
+
+  scanf("%s", s);
+
+  if (is_balanced(s, strlen(s), 0)) {
+    printf("Yes\n");
+  } else {
+    printf("No\n");
+  }
+}
+
 bool is_balanced(char *s, int len, int open) {
   if (len == 0) {
     return open == 0;
@@ -13,17 +27,5 @@ bool is_balanced(char *s, int len, int open) {
     } else {
       return is_balanced(s + 1, len - 1, open);
     }
-  }
-}
-
-int main() {
-  char s[100];
-
-  scanf("%s", s);
-
-  if (is_balanced(s, strlen(s), 0)) {
-    printf("Yes\n");
-  } else {
-    printf("No\n");
   }
 }
