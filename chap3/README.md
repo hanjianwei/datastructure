@@ -17,5 +17,5 @@
 ## 作业
 
 1. 使用链表实现一个 stack，完成[list_stack](./list_stack)中的代码。
-
-2. 利用队列或者堆栈，完成[字符串解码](./decode_string)的程序。
+2. 利用堆栈[stack](./stack)完成[逆波兰表达式的求值](./rpn)。
+3. 利用队列或者堆栈，完成[字符串解码](./decode_string)的程序。
