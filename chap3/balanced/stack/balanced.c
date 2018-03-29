@@ -29,6 +29,9 @@ char matched_char(char c) {
   case '}':
     return '{';
     break;
+  case '>':
+    return '<';
+    break;
   default:
     return '\0';
     break;
@@ -46,12 +49,14 @@ bool is_balanced(char *s) {
     case '(':
     case '[':
     case '{':
+    case '<':
       stack_push(&stack, *s);
       break;
 
     case ')':
     case ']':
     case '}':
+    case '>':
       if (stack_empty(&stack) || stack_pop(&stack) != matched_char(*s)) {
         balanced = false;
       }
