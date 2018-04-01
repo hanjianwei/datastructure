@@ -2,11 +2,12 @@
 #include "sorted_list.h"
 
 #include <stdio.h>
+#include <stdlib.h>
 
 void print_list(struct List *list) {
   struct ListNode *p = list->head;
 
-  printf("[");
+  printf("(%d)[", list->size);
 
   while (p) {
     printf("%d", p->data);
@@ -71,9 +72,42 @@ void test_merge_two_lists() {
   list_destroy(&dst);
 }
 
+void test_merge_multiple_lists(int n) {
+  int i;
+  struct List **lists = malloc(n * sizeof(struct List *));
+
+  for (i = 0; i < n; i++) {
+    lists[i] = malloc(sizeof(struct List));
+    list_init(lists[i]);
+  }
+
+  for (i = 0; i < n; i++) {
+    fill_list(lists[i], i, i + (i + 1) * n, i + 1);
+    printf("List %d: ", i);
+    print_list(lists[i]);
+  }
+
+  struct List dst;
+
+  merge_multiple_lists(&dst, lists, n);
+  for (i = 0; i < n; i++) {
+    printf("List %d: ", i);
+    print_list(lists[i]);
+  }
+  printf("dst: ");
+  print_list(&dst);
+
+  for (i = 0; i < n; i++) {
+    list_destroy(lists[i]);
+    free(lists[i]);
+  }
+  free(lists);
+}
+
 int main() {
   /* test_list(); */
-  test_merge_two_lists();
+  /* test_merge_two_lists(); */
+  test_merge_multiple_lists(5);
 
   return 0;
 }

@@ -34,7 +34,6 @@ void move_list(struct List *src, struct List *dst) {
   src->size = 0;
 }
 
-// TODO:
 enum Status merge_sorted_lists(struct List *dst, struct List *src1,
                                struct List *src2) {
   while (src1->head != NULL && src2->head != NULL) {
@@ -54,7 +53,34 @@ enum Status merge_sorted_lists(struct List *dst, struct List *src1,
   return STATUS_OK;
 }
 
-// TODO:
 enum Status merge_multiple_lists(struct List *dst, struct List **srcs, int n) {
+  if (n <= 0) {
+    return STATUS_OK;
+  } else if (n == 1) {
+    dst->head = srcs[0]->head;
+    dst->tail = srcs[0]->tail;
+    dst->size = srcs[0]->size;
+    srcs[0]->head = NULL;
+    srcs[0]->tail = NULL;
+    srcs[0]->size = 0;
+
+    return STATUS_OK;
+  } else if (n == 2) {
+    return merge_sorted_lists(dst, srcs[0], srcs[1]);
+  }
+
+  struct List tmp1, tmp2;
+
+  list_init(&tmp1);
+  list_init(&tmp2);
+
+  merge_multiple_lists(&tmp1, srcs, n / 2);
+  merge_multiple_lists(&tmp2, srcs + n / 2, n - n / 2);
+
+  enum Status err = merge_sorted_lists(dst, &tmp1, &tmp2);
+
+  list_destroy(&tmp1);
+  list_destroy(&tmp2);
+
   return STATUS_OK;
 }
