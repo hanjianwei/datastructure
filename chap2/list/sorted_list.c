@@ -34,6 +34,7 @@ void move_list(struct List *src, struct List *dst) {
   src->size = 0;
 }
 
+// TODO: DONE
 enum Status merge_sorted_lists(struct List *dst, struct List *src1,
                                struct List *src2) {
   while (src1->head != NULL && src2->head != NULL) {
@@ -53,6 +54,7 @@ enum Status merge_sorted_lists(struct List *dst, struct List *src1,
   return STATUS_OK;
 }
 
+// TODO: DONE
 enum Status merge_multiple_lists(struct List *dst, struct List **srcs, int n) {
   if (n <= 0) {
     return STATUS_OK;
