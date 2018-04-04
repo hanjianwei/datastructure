@@ -66,6 +66,8 @@ bool is_balanced(char *s) {
     s++;
   }
 
+  balanced = balanced && stack_empty(&stack);
+
   stack_destroy(&stack);
 
   return balanced;
