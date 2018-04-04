@@ -2,8 +2,20 @@
 
 #include <stdio.h>
 
-// TODO:
+// TODO: DONE
 void print_clist(struct CList *list) {
+  struct CListNode *p = list->head;
+
+  printf("(%d)[", list->size);
+
+  for (int i = 0; i < list->size; i++, p = p->next) {
+    printf("%.1f", p->data);
+    if (p->next != list->head) {
+      printf(", ");
+    }
+  }
+
+  printf("]\n");
 }
 
 int main() {
