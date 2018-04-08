@@ -16,4 +16,4 @@ typedef struct List Stack;
 
 #define stack_peek(stack) ((stack)->head->data)
 
-DataType stack_pop(Stack *stack);
+ListDataType stack_pop(Stack *stack);

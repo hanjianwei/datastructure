@@ -13,3 +13,5 @@ s = "2[abc]3[cd]ef", return "abcabccdcdcdef".
 ~~~
 
 要求：完成[main.c](./main.c)中标有`TODO`的函数，可以使用[stack](../stack)或者[queue](../queue).
+
+参考答案：[堆栈版](./main.c)、[递归版](./recursion/main.c)。

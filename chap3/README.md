@@ -14,7 +14,7 @@
 - 迷宫（[堆栈版本](./maze/stack)，[队列版本](./maze/queue)）
 - 以给定进制打印数字（[堆栈版本](./print_num/stack)，[递归版本](./print_num/recursion)）
 
-## 作业
+## 作业（参考答案见对应链接）
 
 1. 使用链表实现一个堆栈，完成[list_stack](./list_stack)中的代码。
 2. 使用vector实现一个循环队列，完成[cqueue](./cqueue)中的代码。

@@ -5,7 +5,7 @@
 int main() {
   Stack s;
 
-  stack_init(&s, 10);
+  stack_init(&s);
 
   for (int i = 0; i < 5; i++) {
     stack_push(&s, i);
