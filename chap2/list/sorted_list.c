@@ -59,13 +59,7 @@ enum Status merge_multiple_lists(struct List *dst, struct List **srcs, int n) {
   if (n <= 0) {
     return STATUS_OK;
   } else if (n == 1) {
-    dst->head = srcs[0]->head;
-    dst->tail = srcs[0]->tail;
-    dst->size = srcs[0]->size;
-    srcs[0]->head = NULL;
-    srcs[0]->tail = NULL;
-    srcs[0]->size = 0;
-
+    move_list(srcs[0], dst);
     return STATUS_OK;
   } else if (n == 2) {
     return merge_sorted_lists(dst, srcs[0], srcs[1]);
