@@ -16,6 +16,7 @@ struct ListNode {
 };
 
 struct List {
+  int rows, cols;
   int size;
   struct ListNode *head;
   struct ListNode *tail;
