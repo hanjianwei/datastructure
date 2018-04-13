@@ -66,3 +66,9 @@ int KMP_matching(char *s, char *pat) {
 
   return j == pat_len ? (i - pat_len) : -1;
 }
+
+// TODO:
+// 实现Boyer-Moore算法
+int BM_matching(char *s, char* pat) {
+  return -1;
+}
