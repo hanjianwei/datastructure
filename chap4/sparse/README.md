@@ -1,3 +1,2 @@
-# 单链表
+# 稀疏矩阵
 
-[演示](https://visualgo.net/en/list?slide=3)
