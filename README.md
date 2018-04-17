@@ -2,19 +2,19 @@
 
 ## 目录
 
-1. [第1章](./chap1)
-2. [第2章](./chap2)
-3. [第3章](./chap3)
-4. [第4章](./chap4)
-5. [第5章](./chap5)
+- [第1章](./chap1)
+- [第2章](./chap2)
+- [第3章](./chap3)
+- [第4章](./chap4)
+- [第5章](./chap5)
 
 ## 编码规范
 
 在编写代码时，严格遵守一种编码规范，常用的编码规范如下：
 
-1. [K&R](https://en.wikipedia.org/wiki/Indentation_style#K&R)
-2. [Linux](https://www.kernel.org/doc/html/v4.10/process/coding-style.html)
-3. [Google](https://google.github.io/styleguide/cppguide.html)
+- [K&R](https://en.wikipedia.org/wiki/Indentation_style#K&R)
+- [Linux](https://www.kernel.org/doc/html/v4.10/process/coding-style.html)
+- [Google](https://google.github.io/styleguide/cppguide.html)
 
 ## 资料
 
