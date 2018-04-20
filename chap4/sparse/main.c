@@ -4,9 +4,6 @@
 #include <stdlib.h>
 
 void print_matrix(SparseMatrix *m) {
-  int rows = m->rows;
-  int cols = m->cols;
-
   for (int i = 0; i < m->rows; i++) {
     for (int j = 0; j < m->cols; j++) {
       printf("%5.1f ", sparse_matrix_get(m, i, j));
@@ -39,8 +36,11 @@ int main() {
   // c = a + b
   sparse_matrix_add(&c, &a, &b);
 
+  printf("Matrix a, size(%d):  \n", a.size);
   print_matrix(&a);
+  printf("Matrix b, size(%d): \n", b.size);
   print_matrix(&b);
+  printf("Matrix c, size(%d): \n", c.size);
   print_matrix(&c);
 
   sparse_matrix_destroy(&a);

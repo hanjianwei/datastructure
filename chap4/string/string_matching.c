@@ -1,5 +1,7 @@
 #include "string_matching.h"
+#include "boyer_moore.h"
 #include "string.h"
+
 #include <stdio.h>
 
 int BF_matching(char *s, char *pat) {
@@ -69,6 +71,8 @@ int KMP_matching(char *s, char *pat) {
 
 // TODO:
 // 实现Boyer-Moore算法
-int BM_matching(char *s, char* pat) {
-  return -1;
+int BM_matching(char *s, char *pat) {
+  char *t = boyer_moore(s, strlen(s), pat, strlen(pat));
+
+  return t == NULL ? -1 : t - s;
 }
