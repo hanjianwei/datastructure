@@ -1,48 +1,22 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "btree.h"
 
 int main() {
-  struct BTree *plus = malloc(sizeof(struct BTree));
-  struct BTree *mul = malloc(sizeof(struct BTree));
-  struct BTree *div = malloc(sizeof(struct BTree));
-  struct BTree *a = malloc(sizeof(struct BTree));
-  struct BTree *b = malloc(sizeof(struct BTree));
-  struct BTree *c = malloc(sizeof(struct BTree));
-  struct BTree *d = malloc(sizeof(struct BTree));
+  char *pre = "ABCDEFGHIJKL";
+  char *mid = "CBEFDGAJIKLH";
+  char *post = "CFEGDBJLKIHA";
 
-  plus->data = '+';
-  plus->left = mul;
-  plus->right = div;
+  /* struct BTree *root = btree_from_pre_mid(pre, mid, strlen(pre)); */
+  struct BTree *root = btree_from_post_mid(post, mid, strlen(pre));
+  btree_pre_order(root);
+  /* btree_mid_order(root); */
+  /* btree_post_order(root); */
+  putchar('\n');
 
-  mul->data = '*';
-  mul->left = a;
-  mul->right = b;
+  printf("%d leaves\n", btree_leaves(root));
 
-  div->data = '/';
-  div->left = c;
-  div->right = d;
-
-  a->data = 'a';
-  a->left = a->right = NULL;
-
-  b->data = 'b';
-  b->left = b->right = NULL;
-
-  c->data = 'c';
-  c->left = c->right = NULL;
-
-  d->data = 'd';
-  d->left = d->right = NULL;
-
-  printf("Pre: ");
-  pre_traveral(plus);
-  printf("\n");
-  printf("Mid: ");
-  mid_traveral(plus);
-  printf("\n");
-  printf("Post: ");
-  post_traveral(plus);
-  printf("\n");
+  btree_destroy(root);
 }
