@@ -42,21 +42,25 @@ struct BTree *btree_from_pre_mid(char *pre, char *mid, int len) {
 }
 
 // TODO:
+// 根据后序`post`和中序`mid`遍历构建一棵二叉树
 struct BTree *btree_from_post_mid(char *post, char *mid, int len) {
   return NULL;
 }
 
 // TODO:
+// 根据层次`level`和中序`mid`遍历构建一棵二叉树
 struct BTree *btree_from_level_mid(char *level, char *mid, int len) {
   return NULL;
 }
 
 // TODO:
+// 根据字符串`s`构建一棵搜索二叉树
 struct BTree *btree_build_search_tree(char *s) {
   return NULL;
 }
 
 // TODO:
+// 在二叉搜索树`root`中查找`value`，如果找到返回相应节点，否则返回NULL
 struct BTree *btree_find(struct BTree *root, char value) {
   return NULL;
 }
@@ -92,6 +96,7 @@ void btree_post_order(struct BTree *root) {
 }
 
 // TODO:
+// 对二叉树进行层次遍历
 void btree_level_order(struct BTree *root) {}
 
 int max(int a, int b) { return a > b ? a : b; }
