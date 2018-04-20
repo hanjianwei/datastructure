@@ -33,3 +33,7 @@ int btree_depth(struct BTree *root);
 int btree_leaves(struct BTree *root);
 
 void btree_flip(struct BTree *root);
+
+int btree_is_same(struct BTree *a, struct BTree *b);
+
+int btree_is_isomorphic(struct BTree *a, struct BTree *b);

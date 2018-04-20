@@ -133,3 +133,15 @@ void btree_flip(struct BTree *root) {
   btree_flip(root->left);
   btree_flip(root->right);
 }
+
+// TODO:
+// 判断两棵树是否相同, 相同返回1， 不同返回0
+int btree_is_same(struct BTree *a, struct BTree *b) {
+  return 0;
+}
+
+// TODO:
+// 判断两棵树是否同构，即能够通过若干次左右子树的交换由a变为b，同构返回1，不同构返回2
+int btree_is_isomorphic(struct BTree *a, struct BTree *b) {
+
+}
