@@ -143,5 +143,5 @@ int btree_is_same(struct BTree *a, struct BTree *b) {
 // TODO:
 // 判断两棵树是否同构，即能够通过若干次左右子树的交换由a变为b，同构返回1，不同构返回2
 int btree_is_isomorphic(struct BTree *a, struct BTree *b) {
-
+  return 0;
 }
