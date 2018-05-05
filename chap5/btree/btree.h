@@ -1,5 +1,7 @@
 #pragma once
 
+#include <stdbool.h>
+
 struct BTree {
   char data;
   struct BTree *left;
@@ -20,6 +22,8 @@ struct BTree *btree_build_search_tree(char *s);
 
 struct BTree *btree_find(struct BTree *root, char value);
 
+struct BTree *btree_insert(struct BTree *root, char value);
+
 void btree_pre_order(struct BTree *root);
 
 void btree_mid_order(struct BTree *root);
@@ -34,6 +38,6 @@ int btree_leaves(struct BTree *root);
 
 void btree_flip(struct BTree *root);
 
-int btree_is_same(struct BTree *a, struct BTree *b);
+bool btree_is_same(struct BTree *a, struct BTree *b);
 
-int btree_is_isomorphic(struct BTree *a, struct BTree *b);
+bool btree_is_isomorphic(struct BTree *a, struct BTree *b);
