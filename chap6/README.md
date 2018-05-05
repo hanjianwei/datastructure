@@ -10,4 +10,4 @@
 
 ## 作业
 
-1. 完成[adjmatrix.c](./adjmatrix/adjmatrix.c)中标为`TODO`的函数，使得[main.c](./adjmatrix/main.c)中的测试代码能正确运行。
+1. 完成[graph.c](./adjmatrix/graph.c)中标为`TODO`的函数，使得[main.c](./adjmatrix/main.c)中的测试代码能正确运行。
