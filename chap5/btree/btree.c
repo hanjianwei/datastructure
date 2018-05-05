@@ -1,4 +1,5 @@
 #include "btree.h"
+#include "queue.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -81,11 +82,11 @@ struct BTree *btree_from_level_mid(char *level, char *mid, int len) {
 // 二叉搜索树中插入一个节点
 struct BTree *btree_insert(struct BTree *root, char value) {
   if (root == NULL) {
-    root = btree_create(c, NULL, NULL);
+    root = btree_create(value, NULL, NULL);
   } else if (value < root->data) {
-    root = btree_insert(root->left, value);
+    root->left = btree_insert(root->left, value);
   } else if (value > root->data) {
-    root = btree_insert(root->right, value);
+    root->right = btree_insert(root->right, value);
   }
 
   return root;
@@ -147,9 +148,31 @@ void btree_post_order(struct BTree *root) {
   putchar(root->data);
 }
 
-// TODO:
+// TODO: DONE
 // 对二叉树进行层次遍历
-void btree_level_order(struct BTree *root) {}
+void btree_level_order(struct BTree *root) {
+  if (root == NULL) {
+    return;
+  }
+
+  Queue q;
+  queue_init(&q);
+
+  queue_enqueue(&q, root);
+  while (!queue_empty(&q)) {
+    struct BTree *t = queue_dequeue(&q);
+    putchar(t->data);
+
+    if (t->left != NULL) {
+      queue_enqueue(&q, t->left);
+    }
+    if (t->right != NULL) {
+      queue_enqueue(&q, t->right);
+    }
+  }
+
+  queue_destroy(&q);
+}
 
 int max(int a, int b) { return a > b ? a : b; }
 
@@ -186,10 +209,26 @@ void btree_flip(struct BTree *root) {
   btree_flip(root->right);
 }
 
-// TODO:
+// TODO: DONE
 // 判断两棵树是否相同, 相同返回1， 不同返回0
-bool btree_is_same(struct BTree *a, struct BTree *b) { return false; }
+bool btree_is_same(struct BTree *a, struct BTree *b) {
+  if (a == NULL || b == NULL) {
+    return a == b;
+  }
 
-// TODO:
+  return a->data == b->data && btree_is_same(a->left, b->left) &&
+         btree_is_same(a->right, b->right);
+}
+
+// TODO: DONE
 // 判断两棵树是否同构，即能够通过若干次左右子树的交换由a变为b，同构返回1，不同构返回2
-bool btree_is_isomorphic(struct BTree *a, struct BTree *b) { return false; }
+bool btree_is_isomorphic(struct BTree *a, struct BTree *b) {
+  if (a == NULL || b == NULL) {
+    return a == b;
+  }
+
+  return a->data == b->data && ((btree_is_isomorphic(a->left, b->left) &&
+                                 btree_is_isomorphic(a->right, b->right)) ||
+                                (btree_is_isomorphic(a->left, b->right) &&
+                                 btree_is_isomorphic(a->right, b->left)));
+}
