@@ -61,3 +61,25 @@ int btree_leaves(struct BTree *root) {
 
   return btree_leaves(root->left) + btree_leaves(root->right);
 }
+
+// 判断两棵树是否相同, 相同返回1， 不同返回0
+bool btree_is_same(struct BTree *a, struct BTree *b) {
+  if (a == NULL || b == NULL) {
+    return a == b;
+  }
+
+  return a->data == b->data && btree_is_same(a->left, b->left) &&
+    btree_is_same(a->right, b->right);
+}
+
+// 判断两棵树是否同构，即能够通过若干次左右子树的交换由a变为b，同构返回1，不同构返回2
+bool btree_is_isomorphic(struct BTree *a, struct BTree *b) {
+  if (a == NULL || b == NULL) {
+    return a == b;
+  }
+
+  return a->data == b->data && ((btree_is_isomorphic(a->left, b->left) &&
+                                 btree_is_isomorphic(a->right, b->right)) ||
+                                (btree_is_isomorphic(a->left, b->right) &&
+                                 btree_is_isomorphic(a->right, b->left)));
+}
