@@ -1,10 +1,5 @@
 #include "heap.h"
-
-void heap_swap(DataType *a, DataType *b) {
-  DataType tmp = *a;
-  *a = *b;
-  *b = tmp;
-}
+#include "btree.h"
 
 enum Status heap_init(Heap *h) {
   enum Status st = vector_init(h, 10);
@@ -34,11 +29,13 @@ void heap_adjust(Heap *h, int node) {
   // Choose smaller child
   int left = 2 * node;
   int right = 2 * node + 1;
-  int small = (right <= n && h->buffer[right] < h->buffer[left] ? right : left);
+  int small =
+      (right <= n && h->buffer[right]->freq < h->buffer[left]->freq ? right
+                                                                    : left);
 
   // Swap
-  if (h->buffer[node] > h->buffer[small]) {
-    heap_swap(&h->buffer[node], &h->buffer[small]);
+  if (h->buffer[node]->freq > h->buffer[small]->freq) {
+    SWAP(h->buffer[node], h->buffer[small], DataType);
     heap_adjust(h, small);
   }
 }
@@ -58,3 +55,15 @@ DataType heap_pop(Heap *h) {
 }
 
 DataType heap_top(Heap *h) { return h->buffer[1]; }
+
+void heap_insert(Heap *h, DataType data) {
+  vector_push_back(h, data);
+
+  int pos = heap_size(h);
+
+  while (pos > 1 && h->buffer[pos / 2] > data) {
+    h->buffer[pos] = h->buffer[pos / 2];
+  }
+
+  h->buffer[pos] = data;
+}

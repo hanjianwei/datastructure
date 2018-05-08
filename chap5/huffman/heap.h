@@ -19,3 +19,5 @@ void heap_adjust(Heap *h, int node);
 DataType heap_pop(Heap *h);
 
 DataType heap_top(Heap *h);
+
+void heap_insert(Heap *h, DataType data);

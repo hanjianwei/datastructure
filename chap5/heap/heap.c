@@ -1,11 +1,5 @@
 #include "heap.h"
 
-void heap_swap(DataType *a, DataType *b) {
-  DataType tmp = *a;
-  *a = *b;
-  *b = tmp;
-}
-
 enum Status heap_init(Heap *h) {
   enum Status st = vector_init(h, 10);
   // Index 0 is not used
@@ -38,7 +32,7 @@ void heap_adjust(Heap *h, int node) {
 
   // Swap
   if (h->buffer[node] > h->buffer[small]) {
-    heap_swap(&h->buffer[node], &h->buffer[small]);
+    SWAP(h->buffer[node], h->buffer[small], DataType);
     heap_adjust(h, small);
   }
 }

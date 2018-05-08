@@ -4,13 +4,16 @@
 #include <stdlib.h>
 #include <string.h>
 
-struct BTree *btree_create(TreeDataType root, struct BTree *left, struct BTree *right) {
-  struct BTree *root_node = malloc(sizeof(struct BTree));
-  root_node->data = root;
-  root_node->left = left;
-  root_node->right = right;
+struct BTree *btree_create(char data, int freq, struct BTree *left,
+                           struct BTree *right) {
+  struct BTree *root = malloc(sizeof(struct BTree));
+  root->data = data;
+  root->freq = freq;
+  root->code[0] = '\0';
+  root->left = left;
+  root->right = right;
 
-  return root_node;
+  return root;
 }
 
 void btree_destroy(struct BTree *root) {
@@ -21,22 +24,6 @@ void btree_destroy(struct BTree *root) {
   btree_destroy(root->left);
   btree_destroy(root->right);
   free(root);
-}
-
-// TODO: DONE
-// 在二叉搜索树`root`中查找`value`，如果找到返回相应节点，否则返回NULL
-struct BTree *btree_find(struct BTree *root, TreeDataType value) {
-  if (root == NULL) {
-    return NULL;
-  }
-
-  if (value < root->data) {
-    return btree_find(root->left, value);
-  } else if (value > root->data) {
-    return btree_find(root->right, value);
-  } else {
-    return root;
-  }
 }
 
 int btree_depth(struct BTree *root) {
@@ -69,7 +56,7 @@ bool btree_is_same(struct BTree *a, struct BTree *b) {
   }
 
   return a->data == b->data && btree_is_same(a->left, b->left) &&
-    btree_is_same(a->right, b->right);
+         btree_is_same(a->right, b->right);
 }
 
 // 判断两棵树是否同构，即能够通过若干次左右子树的交换由a变为b，同构返回1，不同构返回2

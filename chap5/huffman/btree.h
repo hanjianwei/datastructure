@@ -2,19 +2,18 @@
 
 #include <stdbool.h>
 
-typedef char TreeDataType;
-
 struct BTree {
-  TreeDataType data;
+  char data;
+  int freq;
+  char code[8];
   struct BTree *left;
   struct BTree *right;
 };
 
-struct BTree *btree_create(TreeDataType root, struct BTree *left, struct BTree *right);
+struct BTree *btree_create(char data, int freq, struct BTree *left,
+                           struct BTree *right);
 
 void btree_destroy(struct BTree *root);
-
-struct BTree *btree_find(struct BTree *root, TreeDataType value);
 
 int btree_depth(struct BTree *root);
 

@@ -2,7 +2,7 @@
 
 #include "common.h"
 
-typedef double DataType;
+typedef struct BTree *DataType;
 
 struct Vector {
   int capacity;
