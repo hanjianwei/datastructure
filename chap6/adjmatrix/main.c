@@ -10,6 +10,8 @@ void init_undirected_graph(struct Graph *g) {
   graph_add_edge(g, 0, 3, 3);
   graph_add_edge(g, 1, 2, 4);
   graph_add_edge(g, 4, 5, 5);
+
+  graph_save(g, "undirected.dot");
 }
 
 // 连通分量
@@ -20,6 +22,8 @@ void init_undirected_subgraph1(struct Graph *g) {
   graph_add_edge(g, 0, 2, 2);
   graph_add_edge(g, 0, 3, 3);
   graph_add_edge(g, 1, 2, 4);
+
+  graph_save(g, "undirected_sg1.dot");
 }
 
 // 子图，非连通分量
@@ -30,6 +34,8 @@ void init_undirected_subgraph2(struct Graph *g) {
   graph_add_edge(g, 0, 2, 2);
   graph_add_edge(g, 0, 3, 3);
   graph_add_edge(g, 1, 2, 4);
+
+  graph_save(g, "undirected_sg2.dot");
 }
 
 // 非子图
@@ -42,6 +48,8 @@ void init_undirected_subgraph3(struct Graph *g) {
   graph_add_edge(g, 1, 2, 4);
   graph_add_edge(g, 1, 4, 4);
   graph_add_edge(g, 4, 5, 5);
+
+  graph_save(g, "undirected_sg3.dot");
 }
 
 void test_undirected_graph() {
@@ -49,7 +57,7 @@ void test_undirected_graph() {
   init_undirected_graph(&g);
 
   printf("Degree: \n");
-  for (int i = 0; i < 6; i++) {
+  for (int i = 0; i < g.v; i++) {
     printf("%d => %d\n", i, graph_degree(&g, i));
   }
 
@@ -91,6 +99,8 @@ void init_directed_graph(struct Graph *g) {
   graph_add_edge(g, 0, 2, 2);
   graph_add_edge(g, 2, 1, 3);
   graph_add_edge(g, 1, 0, 4);
+
+  graph_save(g, "directed.dot");
 }
 
 // 强连通分量
@@ -100,6 +110,8 @@ void init_directed_subgraph1(struct Graph *g) {
   graph_add_edge(g, 0, 2, 2);
   graph_add_edge(g, 2, 1, 3);
   graph_add_edge(g, 1, 0, 4);
+
+  graph_save(g, "directed_sg1.dot");
 }
 
 // 子图，非强连通分量
@@ -108,6 +120,8 @@ void init_directed_subgraph2(struct Graph *g) {
 
   graph_add_edge(g, 2, 1, 3);
   graph_add_edge(g, 1, 0, 4);
+
+  graph_save(g, "directed_sg2.dot");
 }
 
 // 非子图
@@ -118,6 +132,8 @@ void init_directed_subgraph3(struct Graph *g) {
   graph_add_edge(g, 0, 2, 2);
   graph_add_edge(g, 2, 1, 3);
   graph_add_edge(g, 1, 0, 4);
+
+  graph_save(g, "directed_sg3.dot");
 }
 
 void test_directed_graph() {
@@ -125,7 +141,7 @@ void test_directed_graph() {
   init_directed_graph(&g);
 
   printf("Degree: \n");
-  for (int i = 0; i < 6; i++) {
+  for (int i = 0; i < g.v; i++) {
     printf("%d => %d(%d in, %d out)\n", i, graph_degree(&g, i),
            graph_in_degree(&g, i), graph_out_degree(&g, i));
   }
@@ -134,8 +150,8 @@ void test_directed_graph() {
 
   printf("%d and %d are %sconnected\n", 0, 2,
          graph_is_vertex_connected(&g, 0, 2) ? "" : "not ");
-  printf("%d and %d are %sconnected\n", 0, 4,
-         graph_is_vertex_connected(&g, 0, 4) ? "" : "not ");
+  printf("%d and %d are %sconnected\n", 3, 0,
+         graph_is_vertex_connected(&g, 3, 0) ? "" : "not ");
 
   printf("d(%d, %d) = %d\n", 0, 2, graph_vertex_distance(&g, 0, 2));
   printf("d(%d, %d) = %d\n", 1, 3, graph_vertex_distance(&g, 1, 3));

@@ -10,7 +10,7 @@ void matrix_init(struct Matrix *m, int rows, int cols, int mode) {
   m->buffer = malloc(sizeof(DataType) * rows * cols);
 }
 
-void matrix_destory(struct Matrix *m) {
+void matrix_destroy(struct Matrix *m) {
   if (m->buffer != NULL) {
     free(m->buffer);
     m->buffer = NULL;

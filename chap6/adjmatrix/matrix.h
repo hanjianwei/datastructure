@@ -11,7 +11,7 @@ struct Matrix {
 
 void matrix_init(struct Matrix *m, int rows, int cols, int mode);
 
-void matrix_destory(struct Matrix *m);
+void matrix_destroy(struct Matrix *m);
 
 DataType matrix_get(struct Matrix *m, int row, int col);
 

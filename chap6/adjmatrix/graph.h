@@ -11,6 +11,9 @@ struct Graph {
   int e;
   enum GraphType type;
   struct Matrix m;
+
+  bool *marked;
+  int *path;
 };
 
 void graph_init(struct Graph *g, int num_vertices, enum GraphType type);
@@ -39,3 +42,11 @@ bool graph_is_subgraph(struct Graph *g, struct Graph *sg);
 
 // 判断sg是否是g的（强）连通分量
 bool graph_is_connected_component(struct Graph *g, struct Graph *sg);
+
+// 深度遍历，结果保存在marked, path
+void graph_dfs(struct Graph *g, int v);
+
+// 广度遍历，结果保存在marked, path
+void graph_bfs(struct Graph *g, int v);
+
+void graph_save(struct Graph *g, const char *filename);

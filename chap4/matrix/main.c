@@ -14,5 +14,5 @@ int main() {
   }
 
   matrix_print(&m);
-  matrix_destory(&m);
+  matrix_destroy(&m);
 }
