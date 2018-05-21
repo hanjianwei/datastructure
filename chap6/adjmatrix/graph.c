@@ -35,7 +35,7 @@ void graph_init(struct Graph *g, int num_vertices, enum GraphType type) {
   g->v = num_vertices;
   g->e = 0;
   g->type = type;
-  matrix_init(&g->m, num_vertices, num_vertices, 0);
+  matrix_init(&g->m, num_vertices, num_vertices, ROW_MAJOR);
   g->marked = NULL;
   g->path = NULL;
 }
@@ -54,6 +54,7 @@ void graph_add_edge(struct Graph *g, int u, int v, DataType weight) {
   if (g->type == UNDIRECTED_GRAPH) {
     matrix_set(&g->m, v, u, weight);
   }
+  g->e++;
 }
 
 // TODO: DONE
@@ -113,6 +114,7 @@ bool graph_is_connected(struct Graph *g) {
   for (int i = 0; i < g->v; i++) {
     if (!g->marked[i]) {
       connected = false;
+      break;
     }
   }
   g->m.mode = 1 - g->m.mode;

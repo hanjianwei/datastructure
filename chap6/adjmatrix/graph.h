@@ -6,11 +6,15 @@
 
 enum GraphType { UNDIRECTED_GRAPH = 0, DIRECTED_GRAPH = 1 };
 
+typedef char VertexData;
+
 struct Graph {
   int v;
   int e;
   enum GraphType type;
   struct Matrix m;
+
+  VertexData *vertex_data;
 
   bool *marked;
   int *path;

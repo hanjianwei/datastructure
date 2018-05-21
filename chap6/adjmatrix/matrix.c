@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-void matrix_init(struct Matrix *m, int rows, int cols, int mode) {
+void matrix_init(struct Matrix *m, int rows, int cols, enum MatrixMode mode) {
   m->rows = rows;
   m->cols = cols;
   m->mode = mode;
@@ -18,12 +18,12 @@ void matrix_destroy(struct Matrix *m) {
     m->buffer = NULL;
     m->rows = 0;
     m->cols = 0;
-    m->mode = 0;
+    m->mode = ROW_MAJOR;
   }
 }
 
 int matrix_coord_to_index(struct Matrix *m, int row, int col) {
-  return m->mode == 0 ? col + row * m->cols : row + col * m->rows;
+  return m->mode == ROW_MAJOR ? col + row * m->cols : row + col * m->rows;
 }
 
 DataType matrix_get(struct Matrix *m, int row, int col) {

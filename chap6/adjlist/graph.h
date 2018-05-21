@@ -40,3 +40,21 @@ DataType graph_vertex_distance(struct Graph *g, int u, int v);
 void graph_dfs(struct Graph *g, int v);
 
 void graph_bfs(struct Graph *g, int v);
+
+// 判断图g是不是树
+bool graph_is_tree(struct Graph *g);
+
+// 判断t是不是g的生成树
+bool graph_is_spanning_tree(struct Graph *g, struct Graph *t);
+
+// 用dfs生成g的一棵最小生成树
+void graph_spanning_tree_dfs(struct Graph *g, struct Graph *t);
+
+// 用bfs生成g的一棵最小生成树
+void graph_spanning_tree_bfs(struct Graph *g, struct Graph *t);
+
+// 用prim算法生成g的一棵最小生成树
+void graph_spanning_tree_prim(struct Graph *g, struct Graph *t);
+
+// 用kruskal算法生成g的一棵最小生成树
+void graph_spanning_tree_kruskal(struct Graph *g, struct Graph *t);

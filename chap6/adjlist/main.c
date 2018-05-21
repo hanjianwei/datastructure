@@ -58,6 +58,30 @@ void test_directed_graph() {
   graph_destroy(&g);
 }
 
+void test_spanning_tree() {
+  struct Graph g, t_prim, t_kruskal, t_dfs, t_bfs;
+  graph_init(&g, 4, UNDIRECTED_GRAPH);
+
+  graph_add_edge(&g, 0, 1);
+  graph_add_edge(&g, 0, 2);
+  graph_add_edge(&g, 0, 3);
+  graph_add_edge(&g, 1, 2);
+
+  graph_spanning_tree_bfs(&g, &t_bfs);
+
+  graph_spanning_tree_dfs(&g, &t_dfs);
+
+  graph_spanning_tree_prim(&g, &t_prim);
+
+  graph_spanning_tree_kruskal(&g, &t_kruskal);
+
+  graph_destroy(&g);
+  graph_destroy(&t_prim);
+  graph_destroy(&t_kruskal);
+  graph_destroy(&t_dfs);
+  graph_destroy(&t_bfs);
+}
+
 int main() {
   printf("Test undirected graph\n");
   test_undirected_graph();
