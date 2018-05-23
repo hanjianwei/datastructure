@@ -45,11 +45,11 @@ bool graph_is_tree(struct Graph *g) { return false; }
 bool graph_is_spanning_tree(struct Graph *g, struct Graph *t) { return false; }
 
 //TODO:
-// 用dfs生成g的一棵最小生成树
+// 用dfs生成g的一棵生成树
 void graph_spanning_tree_dfs(struct Graph *g, struct Graph *t) {}
 
 //TODO:
-// 用bfs生成g的一棵最小生成树
+// 用bfs生成g的一棵生成树
 void graph_spanning_tree_bfs(struct Graph *g, struct Graph *t) {}
 
 //TODO:
