@@ -231,3 +231,19 @@ void graph_save(struct Graph *g, const char *filename) {
 
   fclose(fp);
 }
+
+// 用Dijikstra算法计算顶点v到其它顶点的距离,
+// 并将距离记录在dists中，路径记录在path中
+void graph_dijikstra(struct Graph *g, int v) {
+  
+}
+
+// 用Floyd算法计算顶点两两之间的距离, 将其记录在dists矩阵中
+void graph_floyd(struct Graph *g, struct Matrix *dists) {
+  
+}
+
+// 用Ford Fulkerson算法计算从s到t的最大流，返回最大流的值，并将流量记录在flow中
+DataType graph_ford_fulkerson(struct Graph *g, int s, int t, struct Graph *flow) {
+  return 0;
+}
