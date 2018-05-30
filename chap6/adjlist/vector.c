@@ -24,7 +24,8 @@ enum Status vector_reserve(struct Vector *vec, int new_cap) {
     return STATUS_ERR_INVALID_CAPACITY;
   }
 
-  VecElemType *p = (VecElemType *)realloc(vec->buffer, new_cap * sizeof(VecElemType));
+  VecElemType *p =
+      (VecElemType *)realloc(vec->buffer, new_cap * sizeof(VecElemType));
   if (p == NULL) {
     return STATUS_ERR_ALLOC;
   }
@@ -44,6 +45,13 @@ void vector_destroy(struct Vector *vec) {
   vec->buffer = NULL;
   vec->capacity = 0;
   vec->size = 0;
+}
+
+void vector_resize(struct Vector *vec, int new_size) {
+  if (vec->capacity < new_size) {
+    vector_reserve(vec, new_size);
+  }
+  vec->size = new_size;
 }
 
 enum Status vector_insert(struct Vector *vec, int pos, VecElemType value) {

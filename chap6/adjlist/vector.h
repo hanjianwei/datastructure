@@ -2,11 +2,7 @@
 
 #include "common.h"
 #include "list.h"
-
-struct Vertex {
-  char data;
-  struct List adj_verts;
-};
+#include "vertex.h"
 
 typedef struct Vertex VecElemType;
 
@@ -20,6 +16,8 @@ struct Vector {
 enum Status vector_init(struct Vector *vec, int cap);
 void vector_destroy(struct Vector *vec);
 enum Status vector_reserve(struct Vector *vec, int new_cap);
+
+void vector_resize(struct Vector *vec, int new_size);
 
 /* Insert element */
 enum Status vector_insert(struct Vector *vec, int pos, VecElemType value);

@@ -1,8 +1,10 @@
 #pragma once
 
 #include "common.h"
+#include "edge.h"
+#include <stdbool.h>
 
-typedef int DataType;
+typedef struct Edge DataType;
 
 struct ListNode {
   DataType data;
