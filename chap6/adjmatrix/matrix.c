@@ -35,8 +35,8 @@ void matrix_set(struct Matrix *m, int row, int col, DataType data) {
 }
 
 void matrix_print(struct Matrix *m) {
-  for (int i = 0; i < 5; i++) {
-    for (int j = 0; j < 5; j++) {
+  for (int i = 0; i < m->rows; i++) {
+    for (int j = 0; j < m->cols; j++) {
       printf("%5d", matrix_get(m, i, j));
     }
     printf("\n");
