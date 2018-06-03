@@ -27,6 +27,10 @@ void graph_destroy(struct Graph *g);
 
 void graph_add_edge(struct Graph *g, int u, int v, DataType weight);
 
+bool graph_has_edge(struct Graph *g, int u, int v);
+
+int graph_edge(struct Graph *g, int u, int v);
+
 int graph_degree(struct Graph *g, int v);
 
 int graph_in_degree(struct Graph *g, int v);
@@ -54,8 +58,6 @@ void graph_dfs(struct Graph *g, int v);
 // 广度遍历，结果保存在marked, path
 void graph_bfs(struct Graph *g, int v);
 
-void graph_save(struct Graph *g, const char *filename);
-
 // 用Dijikstra算法计算顶点v到其它顶点的距离,
 // 并将距离记录在dists中，路径记录在path中
 void graph_dijikstra(struct Graph *g, int v);
@@ -64,4 +66,7 @@ void graph_dijikstra(struct Graph *g, int v);
 void graph_floyd(struct Graph *g, struct Matrix *dists);
 
 // 用Ford Fulkerson算法计算从s到t的最大流，返回最大流的值，并将流量记录在flow中
-DataType graph_ford_fulkerson(struct Graph *g, int s, int t, struct Graph *flow);
+DataType graph_ford_fulkerson(struct Graph *g, int s, int t,
+                              struct Graph *flow);
+
+void graph_save(struct Graph *g, const char *filename);
