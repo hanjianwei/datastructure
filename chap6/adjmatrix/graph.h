@@ -25,7 +25,7 @@ void graph_init(struct Graph *g, int num_vertices, enum GraphType type);
 
 void graph_destroy(struct Graph *g);
 
-void graph_add_edge(struct Graph *g, int u, int v, DataType weight);
+void graph_set_edge(struct Graph *g, int u, int v, DataType weight);
 
 bool graph_has_edge(struct Graph *g, int u, int v);
 

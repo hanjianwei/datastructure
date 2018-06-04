@@ -25,7 +25,7 @@ static void graph_init_marked(struct Graph *g) {
     g->dists = malloc(g->v * sizeof(int));
   }
   for (int i = 0; i < g->v; i++) {
-    g->dists[i] = INT_MAX;
+    g->dists[i] = INT_MAX / 2;
   }
 }
 
@@ -66,12 +66,22 @@ void graph_destroy(struct Graph *g) {
 }
 
 // TODO: DONE
-void graph_add_edge(struct Graph *g, int u, int v, DataType weight) {
+void graph_set_edge(struct Graph *g, int u, int v, DataType weight) {
+  DataType old = matrix_get(&g->m, u, v);
+  if (weight == old) {
+    return;
+  }
+
   matrix_set(&g->m, u, v, weight);
   if (g->type == UNDIRECTED_GRAPH) {
     matrix_set(&g->m, v, u, weight);
   }
-  g->e++;
+
+  if (old == 0) {
+    g->e++;
+  } else if (weight == 0) {
+    g->e--;
+  }
 }
 
 bool graph_has_edge(struct Graph *g, int u, int v) {
@@ -230,25 +240,144 @@ void graph_bfs(struct Graph *g, int v) {
 // Can we update distance of v from u?
 static void graph_relax_edge(struct Graph *g, int u, int v) {
   if (graph_has_edge(g, u, v) &&
-      g->dists[u] + graph_edge(g, u, v) < g->dists[v]) {
+      g->dists[v] > g->dists[u] + graph_edge(g, u, v)) {
     graph_add_path(g, u, v);
   }
 }
 
-// TODO:
+static void graph_relax_vertex(struct Graph *g, int v) {
+  for (int i = 0; i < g->v; i++) {
+    graph_relax_edge(g, v, i);
+  }
+}
+
+static int graph_find_unmarked_mindist_vertex(struct Graph *g) {
+  int mindist = INT_MAX;
+  int mini = -1;
+
+  for (int i = 0; i < g->v; i++) {
+    if (!g->marked[i] && g->dists[i] < mindist) {
+      mindist = g->dists[i];
+      mini = i;
+    }
+  }
+
+  return mini;
+}
+
+static void graph_init_dists(struct Graph *g, int v) {
+  for (int i = 0; i < g->v; i++) {
+    if (graph_has_edge(g, v, i)) {
+      graph_add_path(g, v, i);
+    }
+  }
+}
+
+// TODO: DONE
 // 用Dijikstra算法计算顶点v到其它顶点的距离,
 // 并将距离记录在dists中，路径记录在path中
-void graph_dijikstra(struct Graph *g, int v) {}
+void graph_dijikstra(struct Graph *g, int v) {
+  graph_init_marked(g);
 
-// TODO:
+  g->marked[v] = true;
+  g->path[v] = -1;
+  g->dists[v] = 0;
+
+  graph_init_dists(g, v);
+
+  int w = -1;
+  while ((w = graph_find_unmarked_mindist_vertex(g)) >= 0) {
+    g->marked[w] = true;
+    graph_relax_vertex(g, w);
+  }
+}
+
+// shortest_path(i, j, k) =
+// min(shortest_path(i, j, k-1), shortest_path(i, k-1, k-1) + shortest_path(k-1,
+// j, k-1))
+static int graph_floyd_shortest(struct Graph *g, int i, int j, int k) {
+  if (k == 0) {
+    if (i == j) {
+      return 0;
+    }
+    int w = graph_edge(g, i, j);
+    return w == 0 ? INT_MAX / 2 : w;
+  } else {
+    int w1 = graph_floyd_shortest(g, i, j, k - 1);
+    int w2 = graph_floyd_shortest(g, i, k - 1, k - 1) +
+             graph_floyd_shortest(g, k - 1, j, k - 1);
+    return w1 < w2 ? w1 : w2;
+  }
+}
+
+// TODO: DONE
 // 用Floyd算法计算顶点两两之间的距离, 将其记录在dists矩阵中
-void graph_floyd(struct Graph *g, struct Matrix *dists) {}
+void graph_floyd(struct Graph *g, struct Matrix *dists) {
+  matrix_init(dists, g->m.rows, g->m.cols, g->m.mode);
 
-// TODO:
+  for (int i = 0; i < g->m.rows; i++) {
+    for (int j = 0; j < g->m.cols; j++) {
+      matrix_set(dists, i, j, graph_floyd_shortest(g, i, j, g->v));
+    }
+  }
+}
+
+static int min(int x, int y) { return x < y ? x : y; }
+
+// 返回路径中最小的流
+static int graph_min_flow_in_path(struct Graph *g, int s, int t) {
+  int k = g->path[t];
+  if (k == s) {
+    return graph_edge(g, k, t);
+  } else {
+    return min(graph_edge(g, k, t), graph_min_flow_in_path(g, s, k));
+  }
+}
+
+static void graph_update_edge(struct Graph *g, int u, int v, int dw) {
+  graph_set_edge(g, u, v, graph_edge(g, u, v) + dw);
+}
+
+static int graph_update_flow(struct Graph *g, int s, int t,
+                             struct Graph *flow) {
+  int minflow = graph_min_flow_in_path(g, s, t);
+
+  while (g->path[t] != -1) {
+    int u = g->path[t];
+
+    int total_flow = minflow + graph_edge(flow, u, t) - graph_edge(flow, t, u);
+    if (total_flow > 0) {
+      graph_set_edge(flow, u, t, total_flow);
+      graph_set_edge(flow, t, u, 0);
+    } else {
+      graph_set_edge(flow, u, t, 0);
+      graph_set_edge(flow, t, u, -total_flow);
+    }
+    /* graph_update_edge(flow, u, t, minflow); */
+
+    graph_update_edge(g, u, t, -minflow);
+    graph_update_edge(g, t, u, minflow);
+
+    t = u;
+  }
+
+  return minflow;
+}
+
+// TODO: DONE
 // 用Ford Fulkerson算法计算从s到t的最大流，返回最大流的值，并将流量记录在flow中
+
 DataType graph_ford_fulkerson(struct Graph *g, int s, int t,
+
                               struct Graph *flow) {
-  return 0;
+  graph_init(flow, g->v, g->type);
+  int f = 0;
+
+  while (graph_dfs(g, s), g->marked[t]) {
+    f += graph_update_flow(g, s, t, flow);
+  }
+
+  return f;
 }
 
 void graph_save(struct Graph *g, const char *filename) {
