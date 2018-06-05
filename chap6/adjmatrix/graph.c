@@ -265,25 +265,12 @@ static int graph_find_unmarked_mindist_vertex(struct Graph *g) {
   return mini;
 }
 
-static void graph_init_dists(struct Graph *g, int v) {
-  for (int i = 0; i < g->v; i++) {
-    if (graph_has_edge(g, v, i)) {
-      graph_add_path(g, v, i);
-    }
-  }
-}
-
 // TODO: DONE
-// 用Dijikstra算法计算顶点v到其它顶点的距离,
+// 用Dijistra算法计算顶点v到其它顶点的距离,
 // 并将距离记录在dists中，路径记录在path中
-void graph_dijikstra(struct Graph *g, int v) {
+void graph_dijkstra(struct Graph *g, int v) {
   graph_init_marked(g);
-
-  g->marked[v] = true;
-  g->path[v] = -1;
   g->dists[v] = 0;
-
-  graph_init_dists(g, v);
 
   int w = -1;
   while ((w = graph_find_unmarked_mindist_vertex(g)) >= 0) {

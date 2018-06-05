@@ -58,9 +58,9 @@ void graph_dfs(struct Graph *g, int v);
 // 广度遍历，结果保存在marked, path
 void graph_bfs(struct Graph *g, int v);
 
-// 用Dijikstra算法计算顶点v到其它顶点的距离,
+// 用Dijkstra算法计算顶点v到其它顶点的距离,
 // 并将距离记录在dists中，路径记录在path中
-void graph_dijikstra(struct Graph *g, int v);
+void graph_dijkstra(struct Graph *g, int v);
 
 // 用Floyd算法计算顶点两两之间的距离, 将其记录在dists矩阵中
 void graph_floyd(struct Graph *g, struct Matrix *dists);

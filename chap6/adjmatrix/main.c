@@ -217,7 +217,7 @@ void test_shortest_path() {
   graph_set_edge(&g, 4, 5, 9);
 
   printf("Test dijkstra\n");
-  graph_dijikstra(&g, 0);
+  graph_dijkstra(&g, 0);
 
   for (int i = 0; i < g.v; ++i) {
     printf("d(%d) = %d\n", i, g.dists[i]);
