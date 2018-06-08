@@ -9,7 +9,9 @@
 
 // TODO:
 // 插入排序
-void insertion_sort(int *a, int n, int (*comp)(const void *, const void *)) {}
+void insertion_sort(int *a, int n, int (*comp)(const void *, const void *)) {
+
+}
 
 // TODO:
 // 希尔排序
