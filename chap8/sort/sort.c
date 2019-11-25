@@ -43,7 +43,7 @@ void shell_sort(int *a, int n, int (*comp)(const void *, const void *)) {
   int ng = sizeof(gaps) / sizeof(int);
 
   for (int g = 0; g < ng; g++) {
-    for (int i = 0; i < g; i++) {
+    for (int i = 0; i < gaps[g]; i++) {
       insertion_sort_gap(a, n, i, g, comp);
     }
   }
