@@ -90,7 +90,7 @@ void heapify(int a[], int n, int i, int (*comp)(const void *, const void *)) {
 // 堆排序
 void heap_sort(int *a, int n, int (*comp)(const void *, const void *)) {
   // Build heap (rearrange array)
-  for (int i = n / 2 - 1; i >= 0; i--) {
+  for (int i = n / 2 ; i >= 1; i--) {
     heapify(a, n, i, comp);
   }
 
